@@ -5,6 +5,7 @@ let engine, world, render;
 let rain=[], maxDrops=50;
 let bruce,bruce_walking;
 let umb,thunder,t1,t2,t3,t4;
+let ground;
 
 function preload(){
     bruce_walking=loadAnimation("Walking Frame/walking_1.png","Walking Frame/walking_2.png","Walking Frame/walking_3.png","Walking Frame/walking_4.png","Walking Frame/walking_5.png","Walking Frame/walking_6.png","Walking Frame/walking_7.png","Walking Frame/walking_8.png")
@@ -27,9 +28,11 @@ function setup(){
     bruce=createSprite(250,600);
     bruce.addAnimation("walking",bruce_walking);
     bruce.scale=0.5;
+    ground=createSprite(width/2,height-20,width,20); 
+    ground.shapeColor="brown";
 
     
-    umb=new Umbrella();
+   umb=new Umbrella();
    render=Render.create({
        element:canvas,
        engine:engine
@@ -42,7 +45,7 @@ function setup(){
 function draw(){
     background("#191970");
     Engine.update(engine);
-    text(mouseX+","+mouseY,mouseX,mouseY)
+    //text(mouseX+","+mouseY,mouseX,mouseY)
 
     for(let r in rain)
     {
@@ -50,6 +53,7 @@ function draw(){
         rain[r].update();
     }
     thunderb();
+    bruce.collide(ground);
     //umb.display()
     drawSprites();
    
